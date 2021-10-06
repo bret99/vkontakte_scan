@@ -73,7 +73,7 @@ if compare_files in positive_answers:
     target_output()
     AD_users_scan_script = input("Would one like to scan Active Directory (y/n)? ")
     if AD_users_scan_script in positive_answers:
-        os.system("powershell.exe -ExecutionPolicy ByPass -c 'Get-ADUser -Filter * | ft Name | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'")
+        os.system("powershell.exe -ExecutionPolicy ByPass -c 'Get-ADUser -Filter * | Format-Table Name | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'")
         AD_scan("AD_scan_results.txt")
         os.system("AD_scan_results.txt")
     else:
