@@ -75,7 +75,7 @@ if compare_files in positive_answers:
     if AD_users_scan_script in positive_answers:
         os.system("powershell.exe -ExecutionPolicy ByPass -c 'Get-ADUser -Filter * | Format-Table Name | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'")
         AD_scan("AD_scan_results.txt")
-        os.system("AD_scan_results.txt")
+        os.system("rm AD_scan_results.txt")
     else:
         AD_users_scan = input("Enter path to file with Active Directory users: ")
         AD_scan(AD_users_scan)
