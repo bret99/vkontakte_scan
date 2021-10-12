@@ -5,5 +5,5 @@ One should get vk.com access_tokens with 'friends' and 'photos' permissions (htt
 For best intersections results do not choose IDs and cities when one's input requested. Use those ones just to get more information about target.
 One should remember about running this framework for Active Directory intersections results is correct inside of domain as well. 
 
-P.S.Private accounts are unreachable.
+P.S. Private accounts are unreachable.
 Tested on WSL.
