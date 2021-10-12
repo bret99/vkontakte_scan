@@ -7,5 +7,6 @@ One should remember about running this framework for Active Directory intersecti
 
 P.S. Private accounts are unreachable.
 Tested on WSL.
+
 Run command:
 python3 vkontakte_scan.py
