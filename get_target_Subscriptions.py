@@ -42,7 +42,7 @@ def compare_results():
                 )
             else:
                 os.system(
-                    "powershell.exe -ExecutionPolicy ByPass -c '{}' | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'"
+                    "powershell.exe -ExecutionPolicy ByPass -c '{} | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'"
                     .format(AD_scan_command))
             AD_scan("AD_scan_results.txt")
             os.system("rm AD_scan_results.txt")
