@@ -14,13 +14,20 @@ def target_Subscriptions_output():
 
 
 def AD_scan(AD_scan_results):
+    formatted_AD_users_list = []
+    final_AD_users_list = []
+    with open(AD_scan_results) as AD:
+        for item in AD.readlines():
+            formatted_AD_users_list.append(item)
+    for line in formatted_AD_users_list:
+        line = " ".join(line.split())
+        final_AD_users_list.append(line)
     for line in subscriptions_list:
-        with open(AD_scan_results) as AD:
-            for item in AD.readlines():
-                if line in item:
-                    print(
-                        "\033[1;95mActive Directory user: \033[1;00m{0}=> \033[1;94mVK user: \033[1;00m{1}\033[1;00m"
-                        .format(item, line))
+        for item in final_AD_users_list:
+            if line in item:
+                print(
+                    "\033[1;95mActive Directory user: \033[1;00m{0} => \033[1;94mVK user: \033[1;00m{1}\033[1;00m"
+                    .format(item, line))
 
 
 def compare_results():
@@ -38,7 +45,7 @@ def compare_results():
             )
             if AD_scan_command == "":
                 os.system(
-                    "powershell.exe -ExecutionPolicy ByPass -c 'Get-ADUser -Filter * | Format-Table Name | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'"
+                    "powershell.exe -ExecutionPolicy ByPass -c 'Get-ADUser -Filter * | Format-Table GivenName, Surname | Out-File -FilePath AD_scan_results.txt -Encoding UTF8'"
                 )
             else:
                 os.system(
