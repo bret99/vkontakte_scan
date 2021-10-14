@@ -51,11 +51,11 @@ def AD_scan(AD_scan_results):
         line = " ".join(line.split())
         final_AD_users_list.append(line)
     for line in friends_and_followers_list:
-            for item in final_AD_users_list:
-                if line in item:
-                    print(
-                        "\033[1;95mActive Directory user: \033[1;00m{0} => \033[1;94mVK user: \033[1;00m{1}\033[1;00m"
-                        .format(item, line))
+        for item in final_AD_users_list:
+            if line in item:
+                print(
+                    "\033[1;95mActive Directory user: \033[1;00m{0} => \033[1;94mVK user: \033[1;00m{1}\033[1;00m"
+                    .format(item, line))
 
 
 def compare_results():
