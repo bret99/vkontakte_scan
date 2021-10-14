@@ -112,11 +112,11 @@ def compare_results():
 
 
 def Friends_and_Followers():
+    target = input("Enter correct user_id: ")
     get_friends = input(
         "Would one like to get target \033[1;94mFriends \033[1;00m(y/n)? "
     ).lower()
     if get_friends in positive_answers:
-        target = input("Enter correct user_id: ")
         print("Getting information...")
         friends = requests.get(
             "https://api.vk.com/method/friends.get?user_id={0}&fields=first_name,last_name,city&access_token={1}&v=5.131"
