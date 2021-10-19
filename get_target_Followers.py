@@ -1,5 +1,5 @@
 import requests
-import os 
+import os
 import time
 from access_tokens import access_token_friends
 
@@ -9,7 +9,9 @@ AD_intersections_list = []
 
 
 def get_info(user_id, offset, ids):
-    target_followers = requests.get("https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131".format(user_id, offset, access_token_friends))
+    target_followers = requests.get(
+        "https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131"
+        .format(user_id, offset, access_token_friends))
     followers = target_followers.json()["response"]["items"]
     if ids in positive_answers:
         for item in followers:
@@ -30,11 +32,13 @@ def get_info(user_id, offset, ids):
             print(item)
             followers_list.append(item)
 
+
 def target_Followers_output():
     with open("VK_account_scan_results.txt", 'a') as output:
         output.write('TARGET FOLLOWERS => \n')
         for row in followers_list:
             output.write(str(row) + '\n')
+
 
 def AD_scan(AD_scan_results):
     formatted_AD_users_list = []
@@ -48,7 +52,9 @@ def AD_scan(AD_scan_results):
     for line in followers_list:
         for item in final_AD_users_list:
             if line in item:
-                AD_intersections_list.append("Active Directory user: {0} => VK user: {1}\n".format(item, line))
+                AD_intersections_list.append(
+                    "Active Directory user: {0} => VK user: {1}\n".format(
+                        item, line))
                 print(
                     "\033[1;95mActive Directory user: \033[1;00m{0} => \033[1;94mVK user: \033[1;00m{1}\033[1;00m"
                     .format(item, line))
@@ -110,18 +116,24 @@ def compare_results():
         with open("AD_vs_VK_intersections.txt", "w") as AD_inter:
             for item in AD_intersections_list:
                 AD_inter.write(item)
-        print("One can find \033[1;95mActive Directory \033[1;00mand \033[1;94mVK \033[1;00mintersections in \033[1;94m{}/AD_vs_VK_intersections.txt\033[1;00m\n".format(os.getcwd()))
+        print(
+            "One can find \033[1;95mActive Directory \033[1;00mand \033[1;94mVK \033[1;00mintersections in \033[1;94m{}/AD_vs_VK_intersections.txt\033[1;00m\n"
+            .format(os.getcwd()))
 
 
 def Followers():
     user_id = input("Enter correct user ID: ")
     print("Getting information...")
     offset = 0
-    count = requests.get("https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131".format(user_id, offset, access_token_friends)).json()["response"]["count"]
+    count = requests.get(
+        "https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131"
+        .format(user_id, offset,
+                access_token_friends)).json()["response"]["count"]
     ids = input("Would one like to get cities and IDs (y/n)? ").lower()
     while offset < count:
         get_info(user_id, offset, ids)
         time.sleep(0.1)
         offset += 1000
-    print("Total amount of target \033[1;94mFollowers \033[1;00mis\033[1;95m", count, "\033[1;00m")
+    print("Total amount of target \033[1;94mFollowers \033[1;00mis\033[1;94m",
+          count, "\033[1;00m")
     compare_results()

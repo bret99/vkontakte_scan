@@ -47,7 +47,7 @@ def Search():
     if save_output in positive_answers:
         target_Search_output()
         print(
-            "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m/{}VK_account_search_results.txt\033[1;00m\n"
+            "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_search_results.txt\033[1;00m\n"
             .format(os.getcwd()))
     else:
         print("")
