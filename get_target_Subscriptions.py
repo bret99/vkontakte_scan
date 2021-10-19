@@ -116,7 +116,7 @@ def compare_results():
             print("")
 
     if len(AD_intersections_list) != 0:
-        with open("AD_vs_VK_intersections.txt", "w") as AD_inter:
+        with open("AD_vs_VK_intersections.txt", "a") as AD_inter:
             for item in AD_intersections_list:
                 AD_inter.write(item)
         print(
