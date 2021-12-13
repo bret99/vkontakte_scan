@@ -13,7 +13,7 @@ positive_answers = ['yes', 'y', '']
 
 def main_menu():
     print(
-        "\033[1;94mVK Scanner \033[1;00mmodules:\n\n[\033[1;94m1\033[1;00m] Get target \033[1;94mFriends\n\033[1;00m[\033[1;94m2\033[1;00m] Get target \033[1;94mFollowers\n\033[1;00m[\033[1;94m3\033[1;00m] Get target \033[1;94mSubscriptions\n\033[1;00m[\033[1;94m4\033[1;00m] Get target \033[1;94mGroups\n\033[1;00m[\033[1;94m5\033[1;00m] Get target \033[1;94mPhotos\033[1;00m\n[\033[1;94m6\033[1;00m] Get target \033[1;94mPosts\033[1;00m\n[\033[1;94m7\033[1;00m]\033[1;94m Search \033[1;00mquery in target \033[1;94mFriends\033[1;00m\n[\033[1;94m99\033[1;00m] Exit\n"
+        "\033[1;94mVK Scanner \033[1;00mmodules:\n\n[\033[1;94m1\033[1;00m] Get target \033[1;94mFriends\n\033[1;00m[\033[1;94m2\033[1;00m] Get target \033[1;94mFollowers\n\033[1;00m[\033[1;94m3\033[1;00m] Get target \033[1;94mSubscriptions\n\033[1;00m[\033[1;94m4\033[1;00m] Get target \033[1;94mGroups\n\033[1;00m[\033[1;94m5\033[1;00m] Get target \033[1;94mPhotos\033[1;00m\n[\033[1;94m6\033[1;00m] Get target \033[1;94mPosts\033[1;00m\n[\033[1;94m7\033[1;00m]\033[1;94m Search \033[1;00mquery in target \033[1;94mFriends\033[1;00m\n[\033[1;90m99\033[1;00m] Exit\n"
     )
     choose_module = input("Enter module number: ")
     if choose_module == "1":
