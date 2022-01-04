@@ -119,17 +119,19 @@ def compare_results(user_id):
 
 
 def Subscriptions():
-    user_id = input("Enter correct user_id: ")
-    print("Getting information...")
-    offset = 0
-    count = requests.get("https://api.vk.com/method/users.getSubscriptions?&user_id={0}&extended=1&count=200&offset={1}&access_token={2}&v=5.131".format(user_id, offset, access_token_friends)).json()["response"]["count"]
-    ids = input("Would one like to get cities and IDs (y/n)? ").lower()
-    while offset < count:
-        get_info(user_id, offset, ids)
-        time.sleep(0.1)
-        offset += 200
-    print(
-        "Total amount of target\033[1;94m Subscriptions\033[1;00m is\033[1;94m",
-        count, "\033[1;00m")
-    compare_results(user_id)
-
+    try:
+        user_id = input("Enter correct user_id: ")
+        print("Getting information...")
+        offset = 0
+        count = requests.get("https://api.vk.com/method/users.getSubscriptions?&user_id={0}&extended=1&count=200&offset={1}&access_token={2}&v=5.131".format(user_id, offset, access_token_friends)).json()["response"]["count"]
+        ids = input("Would one like to get cities and IDs (y/n)? ").lower()
+        while offset < count:
+            get_info(user_id, offset, ids)
+            time.sleep(0.1)
+            offset += 200
+        print(
+            "Total amount of target\033[1;94m Subscriptions\033[1;00m is\033[1;94m",
+            count, "\033[1;00m")
+        compare_results(user_id)
+    except KeyError:
+        print("\n\033[1;91mNot correct input!\n\033[1;00m")
