@@ -139,5 +139,5 @@ def Friends():
         print("Total amount of target \033[1;94mFriends \033[1;00mis\033[1;94m",
               count, "\033[1;00m")
         compare_results(user_id)
-    except KeyError:
+    except (KeyError, FileNotFoundError):
         print("\n\033[1;91mNot correct input!\n\033[1;00m")
