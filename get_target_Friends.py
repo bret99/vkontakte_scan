@@ -124,7 +124,7 @@ def compare_results(user_id):
 
 def Friends():
     try:
-        user_id = input("Enter correct user ID: ")
+        user_id = input("Enter correct user_id: ")
         print("Getting information...")
         offset = 0
         count = requests.get(
