@@ -31,18 +31,21 @@ def target_Posts_output(owner_id):
             output.write(str(row) + '\n')
 
 def Posts():
-    owner_id = input("Enter correct owner ID: ")
-    print("Getting information...")
-    offset = 0
-    count = requests.get("https://api.vk.com/method/wall.get?owner_id={0}&count=100&offset={1}&access_token={2}&v=5.131".format(owner_id, offset, access_token_friends)).json()["response"]["count"]
-    while offset < count:
-        get_info(owner_id, offset)
-        time.sleep(0.1)
-        offset += 100
-    print("Total amount of target \033[1;94mPosts \033[1;00mis\033[1;94m", count, "\033[1;00m")
-    save_output = input("\nWould one like to save \033[1;94mVK \033[1;00mscan results (y/n)? ").lower()
-    if save_output in positive_answers:
-        target_Posts_output(owner_id)
-        print("One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n".format(os.getcwd()))
-    else:
-        print("")
+    try:
+        owner_id = input("Enter correct owner_id: ")
+        print("Getting information...")
+        offset = 0
+        count = requests.get("https://api.vk.com/method/wall.get?owner_id={0}&count=100&offset={1}&access_token={2}&v=5.131".format(owner_id, offset, access_token_friends)).json()["response"]["count"]
+        while offset < count:
+            get_info(owner_id, offset)
+            time.sleep(0.1)
+            offset += 100
+        print("Total amount of target \033[1;94mPosts \033[1;00mis\033[1;94m", count, "\033[1;00m")
+        save_output = input("\nWould one like to save \033[1;94mVK \033[1;00mscan results (y/n)? ").lower()
+        if save_output in positive_answers:
+            target_Posts_output(owner_id)
+            print("One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n".format(os.getcwd()))
+        else:
+            print("")
+    except KeyError:
+        print("\n\033[1;91mNot correct input!\n\033[1;00m")
