@@ -32,27 +32,30 @@ def target_Groups_output(user_id):
 
 
 def Groups():
-    user_id = input("Enter correct user_id: ")
-    print("Getting information...")
-    offset = 0
-    count = requests.get(
-        "https://api.vk.com/method/groups.get?user_id={0}&extended=1&count=1000&offset={1}&access_token={2}&v=5.131"
-        .format(user_id, offset,
-                access_token_friends)).json()["response"]["count"]
-    ids = input("Would one like to get cities and IDs (y/n)? ").lower()
-    while offset < count:
-        get_info(user_id, offset, ids)
-        time.sleep(0.1)
-        offset += 1000
-    print("Total amount of target \033[1;94mGroups \033[1;00mis\033[1;94m",
-          count, "\033[1;00m")
-    save_output = input(
-        "\nWould one like to save \033[1;94mVK \033[1;00mscan results (y/n)? "
-    ).lower()
-    if save_output in positive_answers:
-        target_Groups_output(user_id)
-        print(
-            "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
-            .format(os.getcwd()))
-    else:
-        print("")
+    try:
+        user_id = input("Enter correct user_id: ")
+        print("Getting information...")
+        offset = 0
+        count = requests.get(
+            "https://api.vk.com/method/groups.get?user_id={0}&extended=1&count=1000&offset={1}&access_token={2}&v=5.131"
+            .format(user_id, offset,
+                    access_token_friends)).json()["response"]["count"]
+        ids = input("Would one like to get cities and IDs (y/n)? ").lower()
+        while offset < count:
+            get_info(user_id, offset, ids)
+            time.sleep(0.1)
+            offset += 1000
+        print("Total amount of target \033[1;94mGroups \033[1;00mis\033[1;94m",
+              count, "\033[1;00m")
+        save_output = input(
+            "\nWould one like to save \033[1;94mVK \033[1;00mscan results (y/n)? "
+        ).lower()
+        if save_output in positive_answers:
+            target_Groups_output(user_id)
+            print(
+                "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
+                .format(os.getcwd()))
+        else:
+            print("")
+    except KeyError:
+        print("\n\033[1;91mNot correct input!\n\033[1;00m")
