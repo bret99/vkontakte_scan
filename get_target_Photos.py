@@ -21,34 +21,37 @@ def get_target_photos(get_photos, owner_id):
             pass
 
 def Photos():
-    owner_id = input("Enter correct owner_id: ")
-    print("Getting information...")
-    photos_count = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count=200&offset=0&extended=1&access_token={1}&v=5.131".format(owner_id, access_token_photos)).json()["response"]["count"]
-    print(
-        "Total \033[1;94mPhotos \033[1;00mamount is \033[1;94m{}\033[1;00m\n".
-        format(photos_count))
-    photos_amount = input(
-        "Enter the number of \033[1;94mPhotos \033[1;00mto download\033[1;00m: "
-    )
     try:
-        photos_amount = int(photos_amount)
-    except ValueError:
-        sys.exit("\033[1;91mWrong input!\033[1;00m")
-    if photos_amount > 200:
-        print("Downloading photos...")
-        offset = 0
-        count = 200
-        while offset < photos_amount:
-            get_photos = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count={1}&offset={2}&extended=1&access_token={3}&v=5.131".format(owner_id, count, offset, access_token_photos))
+        owner_id = input("Enter correct owner_id: ")
+        print("Getting information...")
+        photos_count = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count=200&offset=0&extended=1&access_token={1}&v=5.131".format(owner_id, access_token_photos)).json()["response"]["count"]
+        print(
+            "Total \033[1;94mPhotos \033[1;00mamount is \033[1;94m{}\033[1;00m\n".
+            format(photos_count))
+        photos_amount = input(
+            "Enter the number of \033[1;94mPhotos \033[1;00mto download\033[1;00m: "
+        )
+        try:
+            photos_amount = int(photos_amount)
+        except ValueError:
+            sys.exit("\033[1;91mWrong input!\033[1;00m")
+        if photos_amount > 200:
+            print("Downloading photos...")
+            offset = 0
+            count = 200
+            while offset < photos_amount:
+                get_photos = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count={1}&offset={2}&extended=1&access_token={3}&v=5.131".format(owner_id, count, offset, access_token_photos))
+                get_target_photos(get_photos, owner_id)
+                time.sleep(0.1)
+                offset += 200
+                if (photos_amount - offset) < 200:
+                    count = photos_amount - offset
+    
+            print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
+        else:
+            get_photos = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count={1}&offset=0&extended=1&access_token={2}&v=5.131".format(owner_id, photos_amount, access_token_photos))
+            print("Downloading photos...")
             get_target_photos(get_photos, owner_id)
-            time.sleep(0.1)
-            offset += 200
-            if (photos_amount - offset) < 200:
-                count = photos_amount - offset
-
-        print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
-    else:
-        get_photos = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count={1}&offset=0&extended=1&access_token={2}&v=5.131".format(owner_id, photos_amount, access_token_photos))
-        print("Downloading photos...")
-        get_target_photos(get_photos, owner_id)
-        print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
+            print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
+    except KeyError:
+        print("\n\033[1;91mNot correct input!\n\033[1;00m")
