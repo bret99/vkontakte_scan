@@ -3,40 +3,40 @@ import os
 import time
 from access_tokens import access_token_friends
 
-followers_list = []
+friends_list = []
 positive_answers = ["y", "yes", ""]
 AD_intersections_list = []
 
 
 def get_info(user_id, offset, ids):
-    target_followers = requests.get(
-        "https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131"
+    target_friends = requests.get(
+        "https://api.vk.com/method/friends.get?&user_id={0}&fields=first_name,last_name,city&count=5000&offset={1}&access_token={2}&v=5.131"
         .format(user_id, offset, access_token_friends))
-    followers = target_followers.json()["response"]["items"]
+    friends = target_friends.json()["response"]["items"]
     if ids in positive_answers:
-        for item in followers:
+        for item in friends:
             try:
                 item = item["first_name"] + " " + item[
                     "last_name"] + " " + "id={}".format(
                         item["id"]) + " " + item["city"]["title"]
                 print(item)
-                followers_list.append(item)
+                friends_list.append(item)
             except KeyError:
                 item = item["first_name"] + " " + item[
                     "last_name"] + " " + "id={}".format(item["id"])
                 print(item)
-                followers_list.append(item)
+                friends_list.append(item)
     else:
-        for item in followers:
+        for item in friends:
             item = item["first_name"] + " " + item["last_name"]
             print(item)
-            followers_list.append(item)
+            friends_list.append(item)
 
 
-def target_Followers_output(user_id):
+def target_Frinends_output(user_id):
     with open("VK_account_scan_results.txt", 'a') as output:
-        output.write('TARGET (id = {}) FOLLOWERS => \n'.format(user_id))
-        for row in followers_list:
+        output.write('TARGET (id = {}) FRIENDS => \n'.format(user_id))
+        for row in friends_list:
             output.write(str(row) + '\n')
 
 
@@ -49,7 +49,7 @@ def AD_scan(AD_scan_results):
     for line in formatted_AD_users_list:
         line = " ".join(line.split())
         final_AD_users_list.append(line)
-    for line in followers_list:
+    for line in friends_list:
         for item in final_AD_users_list:
             if line in item:
                 AD_intersections_list.append(
@@ -65,7 +65,7 @@ def compare_results(user_id):
         "\nWould one like to compare \033[1;94mVK \033[1;00maccount scan results with \033[1;95mActive Directory \033[1;00musers scan results (y/n)? "
     ).lower()
     if compare_files in positive_answers:
-        target_Followers_output(user_id)
+        target_Frinends_output(user_id)
         AD_users_scan_script = input(
             "Would one like to scan \033[1;95mActive Directory \033[1;00m(y/n)? "
         ).lower()
@@ -92,7 +92,7 @@ def compare_results(user_id):
             "\nWould one like to save \033[1;94mVK \033[1;00mscan results (y/n)? "
         )
         if save_output in positive_answers:
-            target_Followers_output(user_id)
+            target_Frinends_output(user_id)
             print(
                 "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
                 .format(os.getcwd()))
@@ -105,7 +105,7 @@ def compare_results(user_id):
             "\nWould one like to save \033[1;94mVK \033[1;00mscan results (y/n)? "
         ).lower()
         if save_output in positive_answers:
-            target_Followers_output(user_id)
+            target_Frinends_output(user_id)
             print(
                 "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
                 .format(os.getcwd()))
@@ -122,21 +122,21 @@ def compare_results(user_id):
             .format(os.getcwd(), user_id))
 
 
-def Followers():
+def Friends():
     try:
         user_id = input("Enter correct user_id: ")
         print("Getting information...")
         offset = 0
         count = requests.get(
-            "https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131"
+            "https://api.vk.com/method/friends.get?&user_id={0}&fields=first_name,last_name,city&count=5000&offset={1}&access_token={2}&v=5.131"
             .format(user_id, offset,
                     access_token_friends)).json()["response"]["count"]
         ids = input("Would one like to get cities and IDs (y/n)? ").lower()
         while offset < count:
             get_info(user_id, offset, ids)
             time.sleep(0.1)
-            offset += 1000
-        print("Total amount of target \033[1;94mFollowers \033[1;00mis\033[1;94m",
+            offset += 5000
+        print("Total amount of target \033[1;94mFriends \033[1;00mis\033[1;94m",
               count, "\033[1;00m")
         compare_results(user_id)
     except (KeyError, FileNotFoundError):
