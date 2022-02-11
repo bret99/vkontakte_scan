@@ -137,10 +137,18 @@ def Followers():
             get_info(user_id, offset, ids)
             time.sleep(0.1)
             offset += 1000
-        print("Total amount of target \033[1;94mFollowers \033[1;00mis\033[1;94m",
-              count, "\033[1;00m")
+        print(
+            "Total amount of target \033[1;94mFollowers \033[1;00mis\033[1;94m",
+            count, "\033[1;00m")
         compare_results(user_id)
     except KeyError:
-        print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
+        print(
+            "\033[1;91mNot correct input or target account is private!\n\033[1;00m"
+        )
     except FileNotFoundError:
-        print("\n\033[1;91mFile with Active Directory scan results not found!\n\033[1;00m")
+        print(
+            "\n\033[1;91mFile with Active Directory scan results not found!\n\033[1;00m"
+        )
+        print(
+            "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
+            .format(os.getcwd()))

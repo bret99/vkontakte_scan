@@ -7,9 +7,11 @@ subscriptions_list = []
 positive_answers = ['yes', 'y', '']
 AD_intersections_list = []
 
+
 def get_info(user_id, offset, ids):
     target_subscriptions = requests.get(
-        "https://api.vk.com/method/users.getSubscriptions?user_id={0}&extended=1&count=200&offset={1}&access_token={2}&v=5.131".format(user_id, offset, access_token_friends))
+        "https://api.vk.com/method/users.getSubscriptions?user_id={0}&extended=1&count=200&offset={1}&access_token={2}&v=5.131"
+        .format(user_id, offset, access_token_friends))
     subscriptions = target_subscriptions.json()["response"]["items"]
     if ids in positive_answers:
         for item in subscriptions:
@@ -33,6 +35,7 @@ def get_info(user_id, offset, ids):
                 print(item)
                 subscriptions_list.append(item)
 
+
 def target_Subscriptions_output(user_id):
     with open("VK_account_scan_results.txt", 'a') as output:
         output.write('TARGET (id = {}) SUBSCRIPTIONS => \n'.format(user_id))
@@ -52,7 +55,9 @@ def AD_scan(AD_scan_results):
     for line in subscriptions_list:
         for item in final_AD_users_list:
             if line in item:
-                AD_intersections_list.append("Active Directory user: {0} => VK user: {1}\n".format(item, line))
+                AD_intersections_list.append(
+                    "Active Directory user: {0} => VK user: {1}\n".format(
+                        item, line))
                 print(
                     "\033[1;95mActive Directory user: \033[1;00m{0} => \033[1;94mVK user: \033[1;00m{1}\033[1;00m"
                     .format(item, line))
@@ -109,13 +114,15 @@ def compare_results(user_id):
                 .format(os.getcwd()))
         else:
             print("")
-    
+
     if len(AD_intersections_list) != 0:
-        with open("AD_vs_VK_{}_intersections.txt".format(user_id), "a") as AD_inter:
+        with open("AD_vs_VK_{}_intersections.txt".format(user_id),
+                  "a") as AD_inter:
             for item in AD_intersections_list:
                 AD_inter.write(item)
-        print("One can find \033[1;95mActive Directory \033[1;00mand \033[1;94mVK \033[1;00mintersections in \033[1;94m{0}/AD_vs_VK_{1}_intersections.txt\033[1;00m\n".format(os.getcwd(), user_id))
-
+        print(
+            "One can find \033[1;95mActive Directory \033[1;00mand \033[1;94mVK \033[1;00mintersections in \033[1;94m{0}/AD_vs_VK_{1}_intersections.txt\033[1;00m\n"
+            .format(os.getcwd(), user_id))
 
 
 def Subscriptions():
@@ -123,7 +130,10 @@ def Subscriptions():
         user_id = input("Enter correct user_id: ")
         print("\033[1;90m\nGetting information...\n\033[1;00m")
         offset = 0
-        count = requests.get("https://api.vk.com/method/users.getSubscriptions?&user_id={0}&extended=1&count=200&offset={1}&access_token={2}&v=5.131".format(user_id, offset, access_token_friends)).json()["response"]["count"]
+        count = requests.get(
+            "https://api.vk.com/method/users.getSubscriptions?&user_id={0}&extended=1&count=200&offset={1}&access_token={2}&v=5.131"
+            .format(user_id, offset,
+                    access_token_friends)).json()["response"]["count"]
         ids = input("Would one like to get cities and IDs (y/n)? ").lower()
         print("\033[1;90m\nGetting information...\n\033[1;00m")
         while offset < count:
@@ -135,6 +145,13 @@ def Subscriptions():
             count, "\033[1;00m")
         compare_results(user_id)
     except KeyError:
-        print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
+        print(
+            "\033[1;91mNot correct input or target account is private!\n\033[1;00m"
+        )
     except FileNotFoundError:
-        print("\n\033[1;91mFile with Active Directory scan results not found!\n\033[1;00m")
+        print(
+            "\n\033[1;91mFile with Active Directory scan results not found!\n\033[1;00m"
+        )
+        print(
+            "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
+            .format(os.getcwd()))
