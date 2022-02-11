@@ -23,7 +23,7 @@ def get_target_photos(get_photos, owner_id):
 def Photos():
     try:
         owner_id = input("Enter correct owner_id: ")
-        print("Getting information...")
+        print("\033[1;90m\nGetting information...\n\033[1;00m")
         photos_count = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count=200&offset=0&extended=1&access_token={1}&v=5.131".format(owner_id, access_token_photos)).json()["response"]["count"]
         print(
             "Total \033[1;94mPhotos \033[1;00mamount is \033[1;94m{}\033[1;00m\n".
@@ -54,4 +54,4 @@ def Photos():
             get_target_photos(get_photos, owner_id)
             print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
     except KeyError:
-        print("\n\033[1;91mNot correct input!\n\033[1;00m")
+        print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")

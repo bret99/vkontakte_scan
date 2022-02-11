@@ -125,13 +125,14 @@ def compare_results(user_id):
 def Followers():
     try:
         user_id = input("Enter correct user_id: ")
-        print("Getting information...")
+        print("\033[1;90m\nGetting information...\n\033[1;00m")
         offset = 0
         count = requests.get(
             "https://api.vk.com/method/users.getFollowers?&user_id={0}&fields=first_name,last_name,city&count=1000&offset={1}&access_token={2}&v=5.131"
             .format(user_id, offset,
                     access_token_friends)).json()["response"]["count"]
         ids = input("Would one like to get cities and IDs (y/n)? ").lower()
+        print("\033[1;90m\nGetting information...\n\033[1;00m")
         while offset < count:
             get_info(user_id, offset, ids)
             time.sleep(0.1)
@@ -140,4 +141,6 @@ def Followers():
               count, "\033[1;00m")
         compare_results(user_id)
     except KeyError:
-        print("\n\033[1;91mNot correct input!\n\033[1;00m")
+        print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
+    except FileNotFoundError:
+        print("\n\033[1;91mFile with Active Directory scan results not found!\n\033[1;00m")

@@ -18,7 +18,7 @@ def Search():
         user_id = input("Enter correct user_id: ")
         search_query_request = input(
             "Enter the \033[1;94mSearch \033[1;00mquery: ")
-        print("Getting information...")
+        print("\033[1;90m\nGetting information...\n\033[1;00m")
         search_query = requests.get(
             "https://api.vk.com/method/friends.search?user_id={0}&q={1}&count=1000&fields=first_name,last_name,city&access_token={2}&v=5.131"
             .format(user_id, search_query_request, access_token_friends))
@@ -53,4 +53,4 @@ def Search():
         else:
             print("")
     except KeyError:
-        print("\n\033[1;91mNot correct input!\n\033[1;00m")
+        print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")

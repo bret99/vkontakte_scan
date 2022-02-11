@@ -34,7 +34,7 @@ def target_Groups_output(user_id):
 def Groups():
     try:
         user_id = input("Enter correct user_id: ")
-        print("Getting information...")
+        print("\033[1;90m\nGetting information...\n\033[1;00m")
         offset = 0
         count = requests.get(
             "https://api.vk.com/method/groups.get?user_id={0}&extended=1&count=1000&offset={1}&access_token={2}&v=5.131"
@@ -58,4 +58,4 @@ def Groups():
         else:
             print("")
     except KeyError:
-        print("\n\033[1;91mNot correct input!\n\033[1;00m")
+        print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
