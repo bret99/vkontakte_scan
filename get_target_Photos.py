@@ -36,7 +36,7 @@ def Photos():
         except ValueError:
             sys.exit("\033[1;91mWrong input!\033[1;00m")
         if photos_amount > 200:
-            print("Downloading photos...")
+            print("\033[1;90mDownloading photos...\0331;00m")
             offset = 0
             count = 200
             while offset < photos_amount:
@@ -47,11 +47,11 @@ def Photos():
                 if (photos_amount - offset) < 200:
                     count = photos_amount - offset
     
-            print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
+            print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{0}/id_{1}_photos \033[1;00mdirectory.\n".format(os.getcwd(), owner_id))
         else:
             get_photos = requests.get("https://api.vk.com/method/photos.getAll?owner_id={0}&count={1}&offset=0&extended=1&access_token={2}&v=5.131".format(owner_id, photos_amount, access_token_photos))
-            print("Downloading photos...")
+            print("\033[1;90mDownloading photos...\033[1;00m")
             get_target_photos(get_photos, owner_id)
-            print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{} \033[1;00mdirectory.\n".format(os.getcwd()))
+            print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{0}/id_{1}_photos \033[1;00mdirectory.\n".format(os.getcwd(), owner_id))
     except KeyError:
         print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
