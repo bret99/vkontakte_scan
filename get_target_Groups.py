@@ -59,3 +59,5 @@ def Groups():
             print("")
     except KeyError:
         print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
+    except KeyboardInterrupt:
+        sys.exit("\n")
