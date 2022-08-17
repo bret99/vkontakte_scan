@@ -3,6 +3,7 @@ import datetime
 from access_tokens import access_token_friends
 import time
 import os
+import sys
 
 posts_list = []
 positive_answers = ["y", "yes", ""]
@@ -79,3 +80,5 @@ def Posts():
         print(
             "\033[1;91mNot correct input or target account is private!\n\033[1;00m"
         )
+    except KeyboardInterrupt:
+        sys.exit("\n")
