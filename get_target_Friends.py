@@ -152,3 +152,5 @@ def Friends():
         print(
             "One can find \033[1;94mVK \033[1;00mscan results in \033[1;94m{}/VK_account_scan_results.txt\033[1;00m\n"
             .format(os.getcwd()))
+    except KeyboardInterrupt:
+        sys.exit("\n")
