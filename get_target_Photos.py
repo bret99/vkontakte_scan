@@ -55,3 +55,5 @@ def Photos():
             print("\nOne can find target \033[1;94mPhotos \033[1;00min \033[1;94m{0}/id_{1}_photos \033[1;00mdirectory.\n".format(os.getcwd(), owner_id))
     except KeyError:
         print("\033[1;91mNot correct input or target account is private!\n\033[1;00m")
+    except KeyboardInterrupt:
+        sys.exit("\n")
