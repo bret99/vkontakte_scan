@@ -2,6 +2,7 @@ import requests
 from access_tokens import access_token_friends
 import os
 import time
+import sys
 
 groups_list = []
 positive_answers = ['yes', 'y', '']
